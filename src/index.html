@@ -8,7 +8,23 @@
 
 <body>
     <script id="enary" type="text/x-handlebars-template">
-
+        {{#each this}}
+        <div class="wrap">
+        {{name}}
+        {{#each children}}
+        <p>
+        {{name}}
+        {{#each children}}
+        <p>{{name}}
+         {{#each children}}
+        <p>{{name}}</p>
+       {{/each}}
+        </p>
+       {{/each}}
+        </p>
+       {{/each}}
+        </div>
+        {{/each}}
     </script>
 </body>
 
@@ -18,11 +34,21 @@ $.ajax({
     url:"/mainlist",
     success:function(res){
         var resdata=JSON.parse(res)
-        console.log(resdata)
+        rander(resdata)
     },error:function(error){
         console.log(error)
     }
 })
+
+function rander(data){
+    var source=$("#enary").html();
+    var template=Handlebars.compile(source);
+    var html=template(data)
+    $("body").html(html)
+
+
+
+}
 
 </script>
 </html>
